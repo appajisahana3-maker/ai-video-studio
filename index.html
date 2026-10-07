@@ -1,5 +1,4 @@
-
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -189,6 +188,11 @@ select {
   opacity: .9;
 }
 
+.generate:disabled {
+  opacity: .55;
+  cursor: not-allowed;
+}
+
 /* PREVIEW */
 .preview {
   aspect-ratio: 16 / 9;
@@ -201,6 +205,14 @@ select {
   text-align: center;
   padding: 25px;
   color: #6f7280;
+  overflow: hidden;
+}
+
+.preview video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 10px;
 }
 
 .preview-icon {
@@ -208,6 +220,7 @@ select {
   margin-bottom: 12px;
 }
 
+/* STATUS */
 .status {
   margin-top: 15px;
   padding: 12px;
@@ -216,6 +229,23 @@ select {
   color: #9699a6;
   font-size: 13px;
   display: none;
+}
+
+.download-button {
+  width: 100%;
+  margin-top: 12px;
+  padding: 12px;
+  border: 1px solid #343641;
+  border-radius: 10px;
+  background: #171820;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  display: none;
+}
+
+.download-button:hover {
+  background: #20212b;
 }
 
 /* FEATURES */
@@ -251,6 +281,7 @@ select {
 
 /* MOBILE */
 @media (max-width: 850px) {
+
   .app {
     grid-template-columns: 1fr;
   }
@@ -273,6 +304,7 @@ select {
 }
 
 @media (max-width: 500px) {
+
   .features {
     grid-template-columns: 1fr;
   }
@@ -284,6 +316,14 @@ select {
   .page-title {
     font-size: 24px;
   }
+
+  header {
+    padding: 0 14px;
+  }
+
+  .header-button {
+    font-size: 12px;
+  }
 }
 </style>
 </head>
@@ -291,44 +331,76 @@ select {
 <body>
 
 <header>
+
   <div class="logo">
     <div class="logo-icon">✦</div>
     AI Video Studio
   </div>
 
-  <button class="header-button">Private Studio</button>
+  <button class="header-button">
+    Private Studio
+  </button>
+
 </header>
+
 
 <div class="app">
 
   <aside class="sidebar">
 
-    <div class="nav-item active">🎬 Video Generator</div>
-    <div class="nav-item">🖼️ Image to Video</div>
-    <div class="nav-item">🎙️ AI Voice</div>
-    <div class="nav-item">📝 Captions</div>
+    <div class="nav-item active">
+      🎬 Video Generator
+    </div>
 
-    <div class="sidebar-title">Workspace</div>
+    <div class="nav-item">
+      🖼️ Image to Video
+    </div>
 
-    <div class="nav-item">📁 Projects</div>
-    <div class="nav-item">⚙️ Settings</div>
+    <div class="nav-item">
+      🎙️ AI Voice
+    </div>
+
+    <div class="nav-item">
+      📝 Captions
+    </div>
+
+    <div class="sidebar-title">
+      Workspace
+    </div>
+
+    <div class="nav-item">
+      📁 Projects
+    </div>
+
+    <div class="nav-item">
+      ⚙️ Settings
+    </div>
 
   </aside>
 
+
   <main>
 
-    <h1 class="page-title">AI Video Generator</h1>
+    <h1 class="page-title">
+      AI Video Generator
+    </h1>
 
     <p class="page-subtitle">
       Create cinematic videos from your ideas.
     </p>
 
+
     <section class="generator">
 
-      <!-- LEFT -->
+
+      <!-- LEFT PANEL -->
+
       <div class="card">
 
-        <div class="card-title">Create a video</div>
+        <div class="card-title">
+          Create a video
+        </div>
+
 
         <label for="prompt">
           Describe your video
@@ -339,77 +411,186 @@ select {
           placeholder="Example: A cinematic ancient Indian temple at sunrise, golden light, birds flying, realistic camera movement..."
         ></textarea>
 
+
         <div class="controls">
 
+
           <div>
-            <label>Style</label>
+
+            <label>
+              Style
+            </label>
 
             <select id="style">
-              <option>Cinematic</option>
-              <option>Realistic</option>
-              <option>Animation</option>
-              <option>Anime</option>
-              <option>Fantasy</option>
-              <option>Documentary</option>
+
+              <option value="Cinematic">
+                Cinematic
+              </option>
+
+              <option value="Realistic">
+                Realistic
+              </option>
+
+              <option value="Animation">
+                Animation
+              </option>
+
+              <option value="Anime">
+                Anime
+              </option>
+
+              <option value="Fantasy">
+                Fantasy
+              </option>
+
+              <option value="Documentary">
+                Documentary
+              </option>
+
             </select>
+
           </div>
 
+
           <div>
-            <label>Aspect Ratio</label>
+
+            <label>
+              Aspect Ratio
+            </label>
 
             <select id="ratio">
-              <option value="16:9">16:9 — YouTube</option>
-              <option value="9:16">9:16 — Shorts</option>
-              <option value="1:1">1:1 — Square</option>
+
+              <option value="16:9">
+                16:9 — YouTube
+              </option>
+
+              <option value="9:16">
+                9:16 — Shorts
+              </option>
+
+              <option value="1:1">
+                1:1 — Square
+              </option>
+
             </select>
+
           </div>
 
+
           <div>
-            <label>Duration</label>
+
+            <label>
+              Duration
+            </label>
 
             <select id="duration">
-              <option value="5">5 seconds</option>
-              <option value="10">10 seconds</option>
-              <option value="15">15 seconds</option>
-              <option value="30">30 seconds</option>
-              <option value="60">60 seconds</option>
+
+              <option value="5">
+                5 seconds
+              </option>
+
+              <option value="10">
+                10 seconds
+              </option>
+
+              <option value="15">
+                15 seconds
+              </option>
+
+              <option value="30">
+                30 seconds
+              </option>
+
+              <option value="60">
+                60 seconds
+              </option>
+
             </select>
+
           </div>
 
+
           <div>
-            <label>Voice</label>
+
+            <label>
+              Voice
+            </label>
 
             <select id="voice">
-              <option>None</option>
-              <option>Natural Male</option>
-              <option>Natural Female</option>
-              <option>Indian English</option>
+
+              <option value="None">
+                None
+              </option>
+
+              <option value="Natural Male">
+                Natural Male
+              </option>
+
+              <option value="Natural Female">
+                Natural Female
+              </option>
+
+              <option value="Indian English">
+                Indian English
+              </option>
+
             </select>
+
           </div>
 
         </div>
 
-        <button class="generate" onclick="generateVideo()">
+
+        <button
+          class="generate"
+          id="generateButton"
+          onclick="generateVideo()"
+        >
           ✨ Generate Video
         </button>
 
-        <div class="status" id="status"></div>
+
+        <div
+          class="status"
+          id="status"
+        ></div>
+
+
+        <button
+          class="download-button"
+          id="downloadButton"
+          onclick="downloadVideo()"
+        >
+          ⬇️ Download Video
+        </button>
 
       </div>
 
-      <!-- RIGHT -->
+
+      <!-- RIGHT PANEL -->
+
       <div class="card">
 
-        <div class="card-title">Preview</div>
+        <div class="card-title">
+          Preview
+        </div>
 
-        <div class="preview" id="preview">
+
+        <div
+          class="preview"
+          id="preview"
+        >
 
           <div>
-            <div class="preview-icon">▶</div>
+
+            <div class="preview-icon">
+              ▶
+            </div>
 
             <div>
               Your generated video will appear here.
             </div>
+
           </div>
 
         </div>
@@ -418,40 +599,77 @@ select {
 
     </section>
 
+
     <!-- FEATURES -->
 
     <section class="features">
 
+
       <div class="feature">
-        <div class="feature-icon">🎥</div>
-        <div class="feature-title">AI Video</div>
+
+        <div class="feature-icon">
+          🎥
+        </div>
+
+        <div class="feature-title">
+          AI Video
+        </div>
+
         <div class="feature-text">
           Generate video from your prompt.
         </div>
+
       </div>
 
+
       <div class="feature">
-        <div class="feature-icon">🎙️</div>
-        <div class="feature-title">AI Voice</div>
+
+        <div class="feature-icon">
+          🎙️
+        </div>
+
+        <div class="feature-title">
+          AI Voice
+        </div>
+
         <div class="feature-text">
           Add natural narration.
         </div>
+
       </div>
 
+
       <div class="feature">
-        <div class="feature-icon">📝</div>
-        <div class="feature-title">Captions</div>
+
+        <div class="feature-icon">
+          📝
+        </div>
+
+        <div class="feature-title">
+          Captions
+        </div>
+
         <div class="feature-text">
           Add automatic subtitles.
         </div>
+
       </div>
 
+
       <div class="feature">
-        <div class="feature-icon">🔊</div>
-        <div class="feature-title">Music</div>
+
+        <div class="feature-icon">
+          🔊
+        </div>
+
+        <div class="feature-title">
+          Music
+        </div>
+
         <div class="feature-text">
           Add background audio.
         </div>
+
       </div>
 
     </section>
@@ -460,54 +678,254 @@ select {
 
 </div>
 
+
 <script>
 
-function generateVideo() {
+/*
+=========================================================
+AI VIDEO STUDIO
+=========================================================
 
-  const prompt =
-    document.getElementById("prompt").value.trim();
+The frontend is ready for the real AI backend.
 
-  const style =
-    document.getElementById("style").value;
+IMPORTANT:
+Do NOT put a Hugging Face token, Colab token,
+ngrok token, or any private credential here.
 
-  const ratio =
-    document.getElementById("ratio").value;
+The backend URL will be added after we have
+a persistent backend.
 
-  const duration =
-    document.getElementById("duration").value;
+=========================================================
+*/
 
-  const voice =
-    document.getElementById("voice").value;
+
+let generatedVideoUrl = null;
+
+
+/* STATUS */
+
+function showStatus(message) {
 
   const status =
     document.getElementById("status");
 
-  if (!prompt) {
-
-    status.style.display = "block";
-
-    status.textContent =
-      "Please describe the video you want to create.";
-
-    return;
-  }
-
   status.style.display = "block";
-
-  status.textContent =
-    "Your video request is ready. The AI generation engine will be connected in the next step.";
-
-  console.log({
-    prompt,
-    style,
-    ratio,
-    duration,
-    voice
-  });
+  status.textContent = message;
 
 }
+
+
+/* GENERATE VIDEO */
+
+async function generateVideo() {
+
+  const prompt =
+    document.getElementById("prompt")
+      .value
+      .trim();
+
+  const style =
+    document.getElementById("style")
+      .value;
+
+  const ratio =
+    document.getElementById("ratio")
+      .value;
+
+  const duration =
+    document.getElementById("duration")
+      .value;
+
+  const voice =
+    document.getElementById("voice")
+      .value;
+
+  const button =
+    document.getElementById("generateButton");
+
+  const preview =
+    document.getElementById("preview");
+
+  const downloadButton =
+    document.getElementById("downloadButton");
+
+
+  /* VALIDATE */
+
+  if (!prompt) {
+
+    showStatus(
+      "Please describe the video you want to create."
+    );
+
+    return;
+
+  }
+
+
+  /* DISABLE BUTTON */
+
+  button.disabled = true;
+
+  button.textContent =
+    "⏳ Preparing...";
+
+
+  downloadButton.style.display =
+    "none";
+
+
+  showStatus(
+    "Preparing your AI video request..."
+  );
+
+
+  /*
+  -------------------------------------------------------
+  BACKEND CONNECTION
+  -------------------------------------------------------
+
+  The real backend will receive:
+
+  prompt
+  style
+  ratio
+  duration
+  voice
+
+  Example request:
+
+  {
+    "prompt": "...",
+    "style": "Cinematic",
+    "ratio": "16:9",
+    "duration": "5",
+    "voice": "None"
+  }
+
+  -------------------------------------------------------
+  */
+
+
+  const videoRequest = {
+
+    prompt: prompt,
+
+    style: style,
+
+    ratio: ratio,
+
+    duration: duration,
+
+    voice: voice
+
+  };
+
+
+  console.log(
+    "Video request:",
+    videoRequest
+  );
+
+
+  /*
+  -------------------------------------------------------
+  TEMPORARY DEMO STATE
+
+  This does NOT pretend to generate a video.
+  The real backend will replace this section.
+  -------------------------------------------------------
+  */
+
+  await new Promise(
+    resolve => setTimeout(resolve, 1000)
+  );
+
+
+  showStatus(
+    "Your request is ready. The AI GPU backend still needs to be connected."
+  );
+
+
+  button.disabled = false;
+
+  button.textContent =
+    "✨ Generate Video";
+
+}
+
+
+/* DOWNLOAD */
+
+function downloadVideo() {
+
+  if (!generatedVideoUrl) {
+
+    showStatus(
+      "There is no generated video to download yet."
+    );
+
+    return;
+
+  }
+
+
+  const link =
+    document.createElement("a");
+
+  link.href =
+    generatedVideoUrl;
+
+  link.download =
+    "ai-video.mp4";
+
+  document.body.appendChild(link);
+
+  link.click();
+
+  link.remove();
+
+}
+
+
+/* ASPECT RATIO */
+
+document
+  .getElementById("ratio")
+  .addEventListener(
+    "change",
+    function () {
+
+      const preview =
+        document.getElementById("preview");
+
+      if (this.value === "9:16") {
+
+        preview.style.aspectRatio =
+          "9 / 16";
+
+      }
+
+      else if (this.value === "1:1") {
+
+        preview.style.aspectRatio =
+          "1 / 1";
+
+      }
+
+      else {
+
+        preview.style.aspectRatio =
+          "16 / 9";
+
+      }
+
+    }
+  );
+
 
 </script>
 
 </body>
 </html>
+  
