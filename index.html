@@ -1,0 +1,513 @@
+
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AI Video Studio</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #08090d;
+  color: #fff;
+  min-height: 100vh;
+}
+
+/* HEADER */
+header {
+  height: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 22px;
+  border-bottom: 1px solid #20222b;
+  background: #0c0d12;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.logo-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 11px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, #7c3cff, #d946ef);
+  font-size: 19px;
+}
+
+.header-button {
+  border: 1px solid #292b35;
+  background: #15161d;
+  color: white;
+  padding: 9px 14px;
+  border-radius: 9px;
+}
+
+/* LAYOUT */
+.app {
+  display: grid;
+  grid-template-columns: 230px 1fr;
+  min-height: calc(100vh - 68px);
+}
+
+/* SIDEBAR */
+.sidebar {
+  border-right: 1px solid #20222b;
+  background: #0b0c11;
+  padding: 18px 12px;
+}
+
+.nav-item {
+  padding: 12px 14px;
+  margin-bottom: 6px;
+  border-radius: 9px;
+  color: #aeb1bd;
+  cursor: pointer;
+}
+
+.nav-item.active,
+.nav-item:hover {
+  background: #191a23;
+  color: white;
+}
+
+.sidebar-title {
+  color: #686b78;
+  font-size: 11px;
+  text-transform: uppercase;
+  margin: 25px 14px 9px;
+}
+
+/* MAIN */
+main {
+  padding: 30px;
+  max-width: 1200px;
+  width: 100%;
+  margin: auto;
+}
+
+.page-title {
+  font-size: 28px;
+  margin-bottom: 7px;
+}
+
+.page-subtitle {
+  color: #858894;
+  margin-bottom: 28px;
+}
+
+/* GENERATOR */
+.generator {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 22px;
+}
+
+.card {
+  background: #101117;
+  border: 1px solid #242631;
+  border-radius: 16px;
+  padding: 20px;
+}
+
+.card-title {
+  font-size: 17px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  color: #a7a9b4;
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+textarea {
+  width: 100%;
+  min-height: 190px;
+  resize: vertical;
+  border: 1px solid #2b2d38;
+  border-radius: 12px;
+  background: #08090d;
+  color: white;
+  padding: 15px;
+  font-size: 15px;
+  outline: none;
+}
+
+textarea:focus {
+  border-color: #8b5cf6;
+}
+
+.controls {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 17px;
+}
+
+select {
+  width: 100%;
+  background: #08090d;
+  color: white;
+  border: 1px solid #2b2d38;
+  border-radius: 9px;
+  padding: 11px;
+  outline: none;
+}
+
+.generate {
+  width: 100%;
+  margin-top: 18px;
+  padding: 14px;
+  border: 0;
+  border-radius: 11px;
+  color: white;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  background: linear-gradient(90deg, #7c3aed, #c026d3);
+}
+
+.generate:hover {
+  opacity: .9;
+}
+
+/* PREVIEW */
+.preview {
+  aspect-ratio: 16 / 9;
+  border: 1px dashed #383a46;
+  border-radius: 12px;
+  background: #08090d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 25px;
+  color: #6f7280;
+}
+
+.preview-icon {
+  font-size: 42px;
+  margin-bottom: 12px;
+}
+
+.status {
+  margin-top: 15px;
+  padding: 12px;
+  border-radius: 9px;
+  background: #15161d;
+  color: #9699a6;
+  font-size: 13px;
+  display: none;
+}
+
+/* FEATURES */
+.features {
+  margin-top: 22px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.feature {
+  padding: 16px;
+  border: 1px solid #242631;
+  background: #101117;
+  border-radius: 12px;
+}
+
+.feature-icon {
+  font-size: 23px;
+  margin-bottom: 9px;
+}
+
+.feature-title {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.feature-text {
+  font-size: 12px;
+  color: #777a86;
+  margin-top: 5px;
+}
+
+/* MOBILE */
+@media (max-width: 850px) {
+  .app {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  main {
+    padding: 18px;
+  }
+
+  .generator {
+    grid-template-columns: 1fr;
+  }
+
+  .features {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 500px) {
+  .features {
+    grid-template-columns: 1fr;
+  }
+
+  .controls {
+    grid-template-columns: 1fr;
+  }
+
+  .page-title {
+    font-size: 24px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">
+    <div class="logo-icon">✦</div>
+    AI Video Studio
+  </div>
+
+  <button class="header-button">Private Studio</button>
+</header>
+
+<div class="app">
+
+  <aside class="sidebar">
+
+    <div class="nav-item active">🎬 Video Generator</div>
+    <div class="nav-item">🖼️ Image to Video</div>
+    <div class="nav-item">🎙️ AI Voice</div>
+    <div class="nav-item">📝 Captions</div>
+
+    <div class="sidebar-title">Workspace</div>
+
+    <div class="nav-item">📁 Projects</div>
+    <div class="nav-item">⚙️ Settings</div>
+
+  </aside>
+
+  <main>
+
+    <h1 class="page-title">AI Video Generator</h1>
+
+    <p class="page-subtitle">
+      Create cinematic videos from your ideas.
+    </p>
+
+    <section class="generator">
+
+      <!-- LEFT -->
+      <div class="card">
+
+        <div class="card-title">Create a video</div>
+
+        <label for="prompt">
+          Describe your video
+        </label>
+
+        <textarea
+          id="prompt"
+          placeholder="Example: A cinematic ancient Indian temple at sunrise, golden light, birds flying, realistic camera movement..."
+        ></textarea>
+
+        <div class="controls">
+
+          <div>
+            <label>Style</label>
+
+            <select id="style">
+              <option>Cinematic</option>
+              <option>Realistic</option>
+              <option>Animation</option>
+              <option>Anime</option>
+              <option>Fantasy</option>
+              <option>Documentary</option>
+            </select>
+          </div>
+
+          <div>
+            <label>Aspect Ratio</label>
+
+            <select id="ratio">
+              <option value="16:9">16:9 — YouTube</option>
+              <option value="9:16">9:16 — Shorts</option>
+              <option value="1:1">1:1 — Square</option>
+            </select>
+          </div>
+
+          <div>
+            <label>Duration</label>
+
+            <select id="duration">
+              <option value="5">5 seconds</option>
+              <option value="10">10 seconds</option>
+              <option value="15">15 seconds</option>
+              <option value="30">30 seconds</option>
+              <option value="60">60 seconds</option>
+            </select>
+          </div>
+
+          <div>
+            <label>Voice</label>
+
+            <select id="voice">
+              <option>None</option>
+              <option>Natural Male</option>
+              <option>Natural Female</option>
+              <option>Indian English</option>
+            </select>
+          </div>
+
+        </div>
+
+        <button class="generate" onclick="generateVideo()">
+          ✨ Generate Video
+        </button>
+
+        <div class="status" id="status"></div>
+
+      </div>
+
+      <!-- RIGHT -->
+      <div class="card">
+
+        <div class="card-title">Preview</div>
+
+        <div class="preview" id="preview">
+
+          <div>
+            <div class="preview-icon">▶</div>
+
+            <div>
+              Your generated video will appear here.
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- FEATURES -->
+
+    <section class="features">
+
+      <div class="feature">
+        <div class="feature-icon">🎥</div>
+        <div class="feature-title">AI Video</div>
+        <div class="feature-text">
+          Generate video from your prompt.
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="feature-icon">🎙️</div>
+        <div class="feature-title">AI Voice</div>
+        <div class="feature-text">
+          Add natural narration.
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="feature-icon">📝</div>
+        <div class="feature-title">Captions</div>
+        <div class="feature-text">
+          Add automatic subtitles.
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="feature-icon">🔊</div>
+        <div class="feature-title">Music</div>
+        <div class="feature-text">
+          Add background audio.
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+</div>
+
+<script>
+
+function generateVideo() {
+
+  const prompt =
+    document.getElementById("prompt").value.trim();
+
+  const style =
+    document.getElementById("style").value;
+
+  const ratio =
+    document.getElementById("ratio").value;
+
+  const duration =
+    document.getElementById("duration").value;
+
+  const voice =
+    document.getElementById("voice").value;
+
+  const status =
+    document.getElementById("status");
+
+  if (!prompt) {
+
+    status.style.display = "block";
+
+    status.textContent =
+      "Please describe the video you want to create.";
+
+    return;
+  }
+
+  status.style.display = "block";
+
+  status.textContent =
+    "Your video request is ready. The AI generation engine will be connected in the next step.";
+
+  console.log({
+    prompt,
+    style,
+    ratio,
+    duration,
+    voice
+  });
+
+}
+
+</script>
+
+</body>
+</html>
